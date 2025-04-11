@@ -1,0 +1,70 @@
+:root {
+    /* Core Brand Colors */
+    --brand-primary: #3182ce;     /* Blue */
+    --brand-secondary: #c75203;   /* Orange */
+    --brand-accent: #4c51bf;      /* Purple */
+  
+    /* Light Mode (Default) */
+    --background: #f8fafc;        /* Very light gray/blue */
+    --surface: #ffffff;           /* White */
+    --surface-alt: #f1f5f9;       /* Light gray/blue */
+    
+    --text-primary: #1e293b;      /* Dark blue/gray */
+    --text-secondary: #475569;    /* Medium blue/gray */
+    --text-muted: #64748b;        /* Light blue/gray */
+    
+    --border: #cbd5e1;            /* Light gray */
+    --border-light: #e2e8f0;      /* Very light gray */
+    
+    /* Interactive Elements - Light Mode */
+    --primary-button: var(--brand-primary);
+    --primary-button-hover: #2563eb;
+    --primary-button-text: white;
+    
+    --secondary-button: #f1f5f9;
+    --secondary-button-hover: #e2e8f0;
+    --secondary-button-text: var(--text-primary);
+    
+    --accent-button: var(--brand-secondary);
+    --accent-button-hover: #b45309;
+    --accent-button-text: white;
+    
+    --link: var(--brand-primary);
+    --link-hover: #1d4ed8;
+    
+    /* Feedback Colors */
+    --success: #059669;
+    --warning: #d97706;
+    --error: #dc2626;
+    --info: #0284c7;
+  }
+  
+  /* Dark Mode */
+  .dark {
+    --background: #0f172a;        /* Very dark blue */
+    --surface: #1e293b;           /* Dark blue/gray */
+    --surface-alt: #334155;       /* Medium blue/gray */
+    
+    --text-primary: #f1f5f9;      /* Very light gray/blue */
+    --text-secondary: #cbd5e1;    /* Light gray/blue */
+    --text-muted: #94a3b8;        /* Medium gray/blue */
+    
+    --border: #475569;            /* Medium blue/gray */
+    --border-light: #334155;      /* Dark blue/gray */
+    
+    /* Interactive Elements - Dark Mode */
+    --primary-button: #3b82f6;
+    --primary-button-hover: #2563eb;
+    --primary-button-text: white;
+    
+    --secondary-button: #334155;
+    --secondary-button-hover: #475569;
+    --secondary-button-text: var(--text-primary);
+    
+    --accent-button: #f97316;
+    --accent-button-hover: #ea580c;
+    --accent-button-text: white;
+    
+    --link: #60a5fa;
+    --link-hover: #93c5fd;
+  }
