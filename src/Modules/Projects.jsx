@@ -20,6 +20,12 @@ export default function Projects() {
                     <a href="/counter" className="absolute bottom-1 left-1 font-semibold text-lg" aria-label="External link">&#8599;</a>
                 </div>
             </div>
+            <div className="rounded-lg shadow-md bg-[var(--card-background-color)] dark:bg-[var(--dark-card-background-color)] relative hover:shadow-lg transition-shadow duration-300">
+                <div className="h-full flex justify-center items-center p-3">
+                    <p>Todo</p>
+                    <a href="/todo" className="absolute bottom-1 left-1 font-semibold text-lg" aria-label="External link">&#8599;</a>
+                </div>
+            </div>
 
         </div>
         
