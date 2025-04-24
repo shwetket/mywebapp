@@ -1,3 +1,7 @@
+
+import { useState, useEffect } from "react";
+import axios from "axios";
+
 export default function Todo() {
     return (
         <div className="min-h-screen bg-gray-100">
@@ -50,6 +54,32 @@ function SearchBar() {
 }
 
 function CreateNoteInput() {
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+    const [allTodos, setAllTodos] = useState([])
+
+    async function getAllTodos() {
+        try {
+            const res = await axios.get("http://localhost:8000/api/todos")
+            setAllTodos(res.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function handleTodoSubmit() {
+        try {
+            const res = await axios.post("http://localhost:8000/api/todos", { title: title, description: desc });
+            console.log(res)
+            setTitle("");
+            setDesc("");
+            getAllTodos()
+        } catch (error) {
+            console.log(error)
+            console.log(error.message)
+        }
+    }
+
     return (
         <div className="bg-white rounded-lg shadow mb-6 mx-auto max-w-xl">
             <div className="p-4">
@@ -57,18 +87,51 @@ function CreateNoteInput() {
                     type="text"
                     className="w-full mb-2 focus:outline-none text-lg font-medium"
                     placeholder="Title"
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
                 />
                 <textarea
                     className="w-full resize-none focus:outline-none"
                     placeholder="Take a note..."
+                    value={desc}
+                    onChange={e => setDesc(e.target.value)}
                 />
                 <div className="flex justify-end mt-2">
-                    <button className="py-1 px-4 text-sm text-gray-600 hover:bg-gray-100 rounded">
+                    <button onClick={handleTodoSubmit} className="py-1 px-4 text-sm text-gray-600 hover:bg-gray-100 rounded">
                         Add
                     </button>
                 </div>
+                <ListOfTodos getAllTodos={getAllTodos} allTodos={allTodos} setAllTodos={setAllTodos} />
             </div>
         </div>
     );
+}
+
+function ListOfTodos({getAllTodos, allTodos, setAllTodos}) {
+   
+
+    useEffect(() => {
+        getAllTodos()
+    }, []);
+
+
+    return (
+        <>
+            <div className="float-start">
+                {allTodos.map((data) => {
+                    return (
+                        <ul className="mt-4">
+                            <li>{data.title}</li>
+                            <li>{data.description}</li>
+                        </ul>
+                    )
+                })}
+                {/* <ul className="mt-4">
+                    <li>title</li>
+                    <li>desc</li>
+                </ul> */}
+            </div>
+        </>
+    )
 }
 
