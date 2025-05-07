@@ -22,7 +22,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -49,9 +51,5 @@
     "postcss-cli": "^11.0.1",
     "tailwindcss": "^4.1.5"
   },
-  "homepage": "https://shwetket.github.io/mywebapp",
-"scripts": {
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
-}
+  "homepage": "https://shwetket.github.io/mywebapp"
 }
