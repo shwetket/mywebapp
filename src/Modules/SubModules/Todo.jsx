@@ -5,10 +5,50 @@ import axios from "axios";
 export default function Todo() {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    const [allTodos, setAllTodos] = useState([]);
+
+    // Fetch all todos
+    const getAllTodos = async () => {
+        try {
+            const res = await axios.get("http://localhost:8000/api/todos");
+            console.log("Fetched todos:", res.data);
+            setAllTodos(res.data);
+        } catch (error) {
+            console.error("Error fetching todos:", error);
+        }
+    };
+
+    // Handle deleting a todo
+    const deleteTodo = async (todoId) => {
+        try {
+            const response = await axios.delete(`http://localhost:8000/api/todos/${todoId}`);
+            
+            // Check if delete was successful
+            if (response.status === 200 || response.status === 204) {
+                console.log("Todo deleted successfully");
+                // Update state by filtering out the deleted todo
+                setAllTodos(prevTodos => prevTodos.filter(todo => todo.id !== todoId));
+            }
+        } catch (error) {
+            console.error("Error deleting todo:", error);
+            alert("Failed to delete note. Please try again.");
+        }
+    };
+
+    useEffect(() => {
+        getAllTodos();
+    }, []);
 
     const toggleDarkMode = () => {
         setIsDarkMode(!isDarkMode);
     };
+
+    // Filter todos based on search query
+    const filteredTodos = allTodos.filter(
+        todo => 
+            todo.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            todo.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <div className="min-h-screen" style={{ 
@@ -23,8 +63,15 @@ export default function Todo() {
             />
             <main className="max-w-6xl mx-auto px-4 py-8">
                 <div className="max-w-2xl mx-auto mb-8">
-                    <CreateNoteInput searchQuery={searchQuery} />
+                    <CreateNoteInput 
+                        searchQuery={searchQuery} 
+                        getAllTodos={getAllTodos}
+                    />
                 </div>
+                <NotesGrid 
+                    filteredTodos={filteredTodos} 
+                    deleteTodo={deleteTodo} 
+                />
             </main>
         </div>
     );
@@ -85,23 +132,12 @@ function Header({ searchQuery, setSearchQuery, isDarkMode, toggleDarkMode }) {
 }
 
 // CreateNoteInput Component
-function CreateNoteInput({ searchQuery }) {
+function CreateNoteInput({ searchQuery, getAllTodos }) {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
-    const [allTodos, setAllTodos] = useState([]);
     const [isExpanded, setIsExpanded] = useState(false);
 
-    // Fetch all todos - keeping your original API logic
-    const getAllTodos = async () => {
-        try {
-            const res = await axios.get("http://localhost:8000/api/todos");
-            setAllTodos(res.data);
-        } catch (error) {
-            console.error("Error fetching todos:", error);
-        }
-    };
-
-    // Handle adding a new todo - keeping your original API logic
+    // Handle adding a new todo
     const handleTodoSubmit = async () => {
         if (!title || !desc) {
             alert("Please fill in both title and description.");
@@ -115,102 +151,74 @@ function CreateNoteInput({ searchQuery }) {
             getAllTodos();
         } catch (error) {
             console.error("Error adding todo:", error);
+            alert("Failed to add note. Please try again.");
         }
     };
-
-    // Handle deleting a todo - keeping your original API logic
-    const deleteTodo = async (todoId) => {
-        try {
-            await axios.delete(`http://localhost:8000/api/todos/${todoId}`);
-            console.log("Todo deleted successfully");
-            getAllTodos();
-        } catch (error) {
-            console.error("Error deleting todo:", error);
-        }
-    };
-
-    useEffect(() => {
-        getAllTodos();
-    }, []);
-
-    // Filter todos based on search query
-    const filteredTodos = allTodos.filter(
-        todo => 
-            todo.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            todo.description.toLowerCase().includes(searchQuery.toLowerCase())
-    );
 
     return (
-        <>
-            <div className="rounded-lg shadow mb-8" style={{ backgroundColor: 'var(--surface)' }}>
-                <div className="p-4">
-                    {isExpanded && (
-                        <input
-                            type="text"
-                            className="w-full mb-2 focus:outline-none text-lg font-medium"
-                            placeholder="Title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            style={{ 
-                                backgroundColor: 'var(--surface)',
-                                color: 'var(--text-primary)',
-                                border: 'none'
-                            }}
-                        />
-                    )}
-                    
-                    <textarea
-                        className="w-full resize-none focus:outline-none"
-                        placeholder={isExpanded ? "Take a note..." : "Click to add a note..."}
-                        value={desc}
-                        onChange={(e) => setDesc(e.target.value)}
-                        onClick={() => !isExpanded && setIsExpanded(true)}
-                        rows={isExpanded ? 3 : 1}
+        <div className="rounded-lg shadow mb-8" style={{ backgroundColor: 'var(--surface)' }}>
+            <div className="p-4">
+                {isExpanded && (
+                    <input
+                        type="text"
+                        className="w-full mb-2 focus:outline-none text-lg font-medium"
+                        placeholder="Title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                         style={{ 
                             backgroundColor: 'var(--surface)',
                             color: 'var(--text-primary)',
                             border: 'none'
                         }}
                     />
-                    
-                    {isExpanded && (
-                        <div className="flex justify-between mt-2">
-                            <div></div>
-                            <div className="flex space-x-2">
-                                <button
-                                    onClick={() => setIsExpanded(false)}
-                                    className="py-2 px-4 rounded text-sm"
-                                    style={{ 
-                                        backgroundColor: 'var(--secondary-button)',
-                                        color: 'var(--secondary-button-text)'
-                                    }}
-                                >
-                                    Close
-                                </button>
-                                <button
-                                    onClick={handleTodoSubmit}
-                                    className="py-2 px-4 rounded text-sm flex items-center"
-                                    style={{ 
-                                        backgroundColor: 'var(--primary-button)',
-                                        color: 'var(--primary-button-text)'
-                                    }}
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                                    </svg>
-                                    Add
-                                </button>
-                            </div>
+                )}
+                
+                <textarea
+                    className="w-full resize-none focus:outline-none"
+                    placeholder={isExpanded ? "Take a note..." : "Click to add a note..."}
+                    value={desc}
+                    onChange={(e) => setDesc(e.target.value)}
+                    onClick={() => !isExpanded && setIsExpanded(true)}
+                    rows={isExpanded ? 3 : 1}
+                    style={{ 
+                        backgroundColor: 'var(--surface)',
+                        color: 'var(--text-primary)',
+                        border: 'none'
+                    }}
+                />
+                
+                {isExpanded && (
+                    <div className="flex justify-between mt-2">
+                        <div></div>
+                        <div className="flex space-x-2">
+                            <button
+                                onClick={() => setIsExpanded(false)}
+                                className="py-2 px-4 rounded text-sm"
+                                style={{ 
+                                    backgroundColor: 'var(--secondary-button)',
+                                    color: 'var(--secondary-button-text)'
+                                }}
+                            >
+                                Close
+                            </button>
+                            <button
+                                onClick={handleTodoSubmit}
+                                className="py-2 px-4 rounded text-sm flex items-center"
+                                style={{ 
+                                    backgroundColor: 'var(--primary-button)',
+                                    color: 'var(--primary-button-text)'
+                                }}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                </svg>
+                                Add
+                            </button>
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
-            
-            <NotesGrid 
-                filteredTodos={filteredTodos} 
-                deleteTodo={deleteTodo} 
-            />
-        </>
+        </div>
     );
 }
 
@@ -241,6 +249,14 @@ function NotesGrid({ filteredTodos, deleteTodo }) {
 function NoteCard({ todo, deleteTodo }) {
     const [isHovered, setIsHovered] = useState(false);
     
+    const handleDelete = (e) => {
+        e.stopPropagation(); // Prevent event bubbling
+        // Use ID from the todo object, check both id and _id (for MongoDB)
+        const todoId = todo.id || todo._id;
+        console.log("NoteCard attempting to delete todo with ID:", todoId, "Full todo:", todo);
+        deleteTodo(todoId);
+    };
+    
     return (
         <div 
             className="rounded-lg shadow transition-shadow hover:shadow-md"
@@ -261,7 +277,7 @@ function NoteCard({ todo, deleteTodo }) {
                 
                 <div className={`flex justify-end transition-opacity ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
                     <button 
-                        onClick={() => deleteTodo(todo.id)}
+                        onClick={handleDelete}
                         className="p-2 rounded-full hover:bg-red-100"
                         style={{ color: 'var(--error)' }}
                         aria-label="Delete note"
