@@ -9,6 +9,7 @@ import NotFound from '../pages/NotFound';
 
 const routes = [
   { path: '/', element: <Hero />, exact: true },
+  { path: '/mywebapp', element: <Hero />, },
   { path: '/projects', element: <Projects /> },
   { path: '/skills', element: <Skills /> },
   { path: '/contactme', element: <Connect /> },

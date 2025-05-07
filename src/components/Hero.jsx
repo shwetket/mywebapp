@@ -20,14 +20,14 @@ export default function Hero() {
                 </div>
 
                 {/* HackerRank Box */}
-                <div className="row-span-2 rounded-lg shadow-md bg-[var(--card-background-color)] dark:bg-[var(--dark-card-background-color)] relative hover:shadow-lg transition-shadow duration-300">
+                <a href="https://www.hackerrank.com/profile/ketannvermaa" className="row-span-2 rounded-lg shadow-md bg-[var(--card-background-color)] dark:bg-[var(--dark-card-background-color)] relative hover:shadow-lg transition-shadow duration-300">
                     <div className="h-full flex flex-col justify-center items-center p-4">
                         <div className="flex justify-center items-center flex-grow">
                             <img src={require('../resources/hackerrank_logo.png')} className="w-32 h-32" alt="Hackerrank logo" />
                         </div>
                         <span className="absolute bottom-1 left-1 font-semibold text-lg" aria-label="External link">&#8599;</span>
                     </div>
-                </div>
+                </a>
 
                 {/* Dark Mode Toggle Box */}
                 <div className="rounded-lg shadow-md bg-[var(--card-background-color)] dark:bg-[var(--dark-card-background-color)] relative hover:shadow-lg transition-shadow duration-300">
@@ -38,20 +38,20 @@ export default function Hero() {
                 </div>
 
                 {/* LinkedIn Box */}
-                <div className="rounded-lg shadow-md bg-[var(--card-background-color)] dark:bg-[var(--dark-card-background-color)] relative hover:shadow-lg transition-shadow duration-300">
+                <a href="https://www.linkedin.com/in/ketanverma/" className="rounded-lg shadow-md bg-[var(--card-background-color)] dark:bg-[var(--dark-card-background-color)] relative hover:shadow-lg transition-shadow duration-300">
                     <div className="h-full flex justify-center items-center p-3">
                         <img src={require('../resources/linkedin-logo.png')} className="w-38 h-38" alt="LinkedIn logo" />
                         <span className="absolute bottom-1 left-1 font-semibold text-lg" aria-label="External link">&#8599;</span>
                     </div>
-                </div>
+                </a>
 
                 {/* GitHub Box */}
-                <div className="rounded-lg shadow-md bg-[var(--card-background-color)] dark:bg-[var(--dark-card-background-color)] relative hover:shadow-lg transition-shadow duration-300">
+                <a href="https://github.com/shwetket" target="_blank" rel="noopener noreferrer" className="rounded-lg shadow-md bg-[var(--card-background-color)] dark:bg-[var(--dark-card-background-color)] relative hover:shadow-lg transition-shadow duration-300 block">
                     <div className="h-full flex justify-center items-center p-3">
                         <img src={require('../resources/github-logo.png')} className="w-38 h-38" alt="GitHub logo" />
                         <span className="absolute bottom-1 left-1 font-semibold text-lg" aria-label="External link">&#8599;</span>
                     </div>
-                </div>
+                </a>
 
                 {/* Featured Project/Content Box */}
                 <div className="row-span-2 rounded-lg shadow-md bg-[var(--card-background-color)] dark:bg-[var(--dark-card-background-color)] relative p-4 hover:shadow-lg transition-shadow duration-300">
@@ -72,12 +72,12 @@ export default function Hero() {
                 </div>
 
                 {/* WhatsApp Box */}
-                <div className="rounded-lg shadow-md bg-[var(--card-background-color)] dark:bg-[var(--dark-card-background-color)] relative hover:shadow-lg transition-shadow duration-300">
+                <a href="https://wa.link/kduke7"  className="rounded-lg shadow-md bg-[var(--card-background-color)] dark:bg-[var(--dark-card-background-color)] relative hover:shadow-lg transition-shadow duration-300">
                     <div className="h-full flex justify-center items-center p-3">
                         <img src={require('../resources/WhatsApp-logo.png')} className="w-38 h-38" alt="WhatsApp logo" />
                         <span className="absolute bottom-1 left-1 font-semibold text-lg" aria-label="External link">&#8599;</span>
                     </div>
-                </div>
+                </a>
 
                 {/* Map Box */}
                 <div className="col-start-1 col-span-2 rounded-lg shadow-md bg-[var(--card-background-color)] dark:bg-[var(--dark-card-background-color)] relative hover:shadow-lg transition-shadow duration-300">
