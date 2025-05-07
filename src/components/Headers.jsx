@@ -8,9 +8,6 @@ export default function Headers() {
                         <a href="/" className="mx-4 py-1 hover:text-[var(--link)]">Home</a>
                     </div>
                     <div className="flex justify-center items-center rounded-full hover:bg-[var(--secondary-button-hover)] transition-colors duration-200">
-                        <a href="/about" className="mx-4 py-1 hover:text-[var(--link)]">About</a>
-                    </div>
-                    <div className="flex justify-center items-center rounded-full hover:bg-[var(--secondary-button-hover)] transition-colors duration-200">
                         <a href="/skill" className="mx-4 py-1 hover:text-[var(--link)]">Skills</a>
                     </div>
                     <div className="flex justify-center items-center rounded-full hover:bg-[var(--secondary-button-hover)] transition-colors duration-200">

@@ -1,15 +1,14 @@
 import './App.css';
-import Headers from './Modules/Headers';
-import Footers from './Modules/Footers';
-import Hero from './Modules/Hero';
-import Projects from './Modules/Projects';
-import About from './Modules/About';
-import Skills from './Modules/Skill';
-import Connect from './Modules/Connect';
-import Weather from './Modules/SubModules/Weather';
+import Headers from './components/Headers';
+import Footers from './components/Footers';
+import Hero from './components/Hero';
+import Projects from './pages/Projects';
+import Skills from './pages/Skill';
+import Connect from './pages/Connect';
+import Weather from './pages/projects/Weather';
 import { Route, Routes } from 'react-router-dom';
-import Counter from './Modules/SubModules/Counter';
-import Todo from './Modules/SubModules/Todo'; 
+import Counter from './pages/projects/Counter';
+import Todo from './pages/projects/Todo'; 
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/about" element={<About />} />
         <Route path="/skills" element={<Skills />} />
         <Route path="/contactme" element={<Connect />} />
         <Route path="/weather" element={<Weather />} />
